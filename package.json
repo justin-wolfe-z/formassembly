@@ -1,0 +1,26 @@
+{
+  "name": "formassembly",
+  "version": "1.0.1",
+  "description": "FormAssembly Zapier integration",
+  "repository": "zapier/zapier-platform-example-app-oauth2",
+  "homepage": "https://zapier.com/",
+  "author": "Justin Wolfe <justin.wolfe@zapier.com>",
+  "license": "BSD-3-Clause",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --recursive"
+  },
+  "engines": {
+    "node": "8.10.0",
+    "npm": ">=5.6.0"
+  },
+  "dependencies": {
+    "html-entities": "^1.2.1",
+    "zapier-platform-core": "7.1.0",
+    "zapier-platform-legacy-scripting-runner": "^2.1.0"
+  },
+  "devDependencies": {
+    "mocha": "^5.2.0",
+    "should": "^13.2.0"
+  }
+}

@@ -1,8 +1,8 @@
 const authentication = require("./authentication");
 const listForms = require("./triggers/listForms");
 const listResponses = require("./triggers/listResponses");
+const submitResponse = require("./actions/submitResponse");
 
-// To include the Authorization header on all outbound requests, simply define a function here.
 // It runs runs before each request is sent out, allowing you to make tweaks to the request in a centralized spot
 const includeAccessToken = (request, z, bundle) => {
   if (bundle.authData.access_token) {
@@ -35,7 +35,9 @@ const App = {
   searches: {},
 
   // If you want your creates to show up, you better include it here!
-  creates: {}
+  creates: {
+    [submitResponse.key]: submitResponse
+  }
 };
 
 // Finally, export the app.

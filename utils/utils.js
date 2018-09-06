@@ -79,6 +79,20 @@ const processFieldsets = response => {
       traverseFieldsets([response.fieldset], fieldsetFields);
     }
     return fieldsetFields;
+  } else {
+    return [];
+  }
+};
+
+const processLooseFields = fields => {
+  if (fields) {
+    if (Array.isArray(fields)) {
+      return fields;
+    } else {
+      return [fields];
+    }
+  } else {
+    return [];
   }
 };
 
@@ -204,5 +218,7 @@ module.exports = {
   processResponseArray,
   traverseFieldsets,
   processFieldsets,
-  processField
+  processField,
+  processLooseFields,
+  labelBlankFieldWithID
 };

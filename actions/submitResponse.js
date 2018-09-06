@@ -44,6 +44,7 @@ const postResponse = (z, bundle) => {
         tfa_dbControl: parsed.form.dbControl,
         tfa_dbFormId: parsed.form.dbFormId
       });
+      delete outputFields["form"];
       return z
         .request(
           `https://${bundle.authData.instance_url}/responses/processor`,

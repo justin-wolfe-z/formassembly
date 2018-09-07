@@ -136,6 +136,21 @@ const labelBlankFieldWithID = field => {
   }
 };
 
+const processChoices = field => {
+  if (field.choices && field.choices.choice) {
+    if (Array.isArray(field.choices.choice)) {
+      return field.choices.choice.reduce((accumulator, choice) => {
+        accumulator.push(choice.label.textContent || choice.label.id);
+        return accumulator;
+      }, []);
+    } else {
+      return field.value.textContent;
+    }
+  } else {
+    return field.value.textContent;
+  }
+};
+
 const processField = field => {
   //label the field with its id if it doesn't have a label
   var label = labelBlankFieldWithID(field);
@@ -177,13 +192,14 @@ const processField = field => {
         return {
           normalField: true,
           key: label,
-          value: value
+          value: processChoices(field)
         };
       } else {
         return {
           normalField: true,
-          key: `${label} [${repeatIndex}]`,
-          value: value
+          repeatable: true,
+          key: `${label} (${field.normalized})`,
+          value: processChoices(field)
         };
       }
       //else if this is not a repeated field
@@ -193,13 +209,13 @@ const processField = field => {
         return {
           normalField: true,
           key: `${label} (${fieldID})`,
-          value: value
+          value: processChoices(field)
         };
       } else {
         return {
           normalField: true,
           key: label,
-          value: value
+          value: processChoices(field)
         };
       }
     }

@@ -44,8 +44,16 @@ const getResponses = (z, bundle) => {
                 processedResponse[processedField.key] = processedField.value;
               }
               if (processedField.normalField) {
-                processedResponse.fields[processedField.key] =
-                  processedField.value;
+                if (processedField.repeatable) {
+                  if (!(processedField.key in processedResponse)) {
+                    processedResponse[processedField.key] = [];
+                  }
+                  processedResponse[processedField.key].push(
+                    processedField.value
+                  );
+                } else {
+                  processedResponse[processedField.key] = processedField.value;
+                }
               }
             }
           }

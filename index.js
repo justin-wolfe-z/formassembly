@@ -36,7 +36,7 @@ const App = {
 
   // If you want your creates to show up, you better include it here!
   creates: {
-    [submitResponse.key]: submitResponse
+    //[submitResponse.key]: submitResponse
   }
 };
 

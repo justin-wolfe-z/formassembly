@@ -1,26 +1,27 @@
 //take FA file list field and return an object with each attachment as a property
 const listFiles = field => {
-  var output = {};
   var fileArr = [];
   //if there is a file list (i.e. at least one file upload field was used)
   if (field.value.textContent) {
     //if there are multiple files, split into an array
-    if (field.value.textContent.indexOf(",") != -1) {
+    if (field.value.textContent.indexOf(",") !== -1) {
       fileArr = field.value.textContent.split(",");
       //if there's just one file, put it in an array
     } else {
       fileArr = [field.value.textContent];
     }
     //loop through files
-    for (var i = 0; i < fileArr.length; i++) {
-      //make counter readable for normies
-      var humanCount = i + 1;
-      //add the file to the output array
-      output["file_" + humanCount + " "] = fileExtractor(fileArr[i]);
-    }
+    return fileArr.map(file => {
+      const extracted = fileExtractor(file);
+      return {
+        name: extracted.name,
+        size: extracted.size,
+        url: extracted.url
+      };
+    });
   } else {
+    return [];
   }
-  return output;
 };
 
 const processResponseArray = responseContent => {
@@ -99,7 +100,12 @@ const processLooseFields = fields => {
 //for getting the file URLs out of the strings for the files in the listFiles function
 const fileExtractor = str => {
   var urlArr = str.split("):");
-  return urlArr[1].trim();
+  var nameArr = urlArr[0].split("(");
+  return {
+    url: urlArr[1].trim(),
+    name: nameArr[0].trim(),
+    size: nameArr[1].trim()
+  };
 };
 
 //filter metadata fields into their own key
@@ -173,10 +179,11 @@ const processField = field => {
         value: value
       };
     } else {
+      var cleanLabel = label.replace(":", "");
       return {
         normalField: false,
         parent: "metadata",
-        key: label,
+        key: cleanLabel,
         value: value
       };
     }
@@ -222,10 +229,11 @@ const processField = field => {
   }
   //handle file list
   if (label === "unprotected_file_list") {
+    const files = listFiles(field);
     return {
       normalField: false,
       key: "files",
-      value: listFiles(field)
+      value: files
     };
   }
 };

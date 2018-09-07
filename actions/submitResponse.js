@@ -80,7 +80,8 @@ module.exports = {
   // `display` controls the presentation in the Zapier Editor
   display: {
     label: "Submit Form Response",
-    description: "Submits a new response to a form."
+    description: "Submits a new response to a form.",
+    hidden: true
   },
   // `operation` implements the API call used to fetch the data
   operation: {

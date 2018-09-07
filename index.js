@@ -35,9 +35,7 @@ const App = {
   searches: {},
 
   // If you want your creates to show up, you better include it here!
-  creates: {
-    //[submitResponse.key]: submitResponse
-  }
+  creates: {}
 };
 
 // Finally, export the app.
